@@ -76,7 +76,7 @@ let bookings = [];
         })
         //console.log("Current cities in CA: ", cities.join(", "));
     });*/
-
+let deleted_Bookings = [];
 db.collection("bookings").where("hotel", "==", "Hotel Comster Mtwapa")
     .onSnapshot((snapshot) => {
         snapshot.docChanges().forEach((change) => {
@@ -95,7 +95,8 @@ db.collection("bookings").where("hotel", "==", "Hotel Comster Mtwapa")
                     notes: object.notes,
                     rooms: object.rooms,
                     children: object.children,
-                    id: id
+                    id: id,
+                    status: object.status
                 });
                 $('#table_data').append(
                     '<tr class="tablerow" onclick="expandInfo(this)" id="'+ change.doc.id +'"><td class="booking_name">'+ object.name +'</td><td class="booking_mail">'+ object.mail +'</td><td class="booking_rooms">'+ object.rooms +'</td><td class="booking_adults">'+ object.adults +'</td><td class="booking_children">'+ object.children +'</td><td class="text-right booking_guests">'+ object.guests +'</td></tr>'
@@ -112,6 +113,20 @@ db.collection("bookings").where("hotel", "==", "Hotel Comster Mtwapa")
             if (change.type === "removed") {
                 let object = change.doc.data();
                 let id = change.doc.id;
+                deleted_Bookings.push({
+                    name: object.name,
+                    mail: object.mail,
+                    adults: object.adults,
+                    amount: object.amount,
+                    checkin: object.checkin,
+                    checkout: object.checkout,
+                    guests: object.guests,
+                    notes: object.notes,
+                    rooms: object.rooms,
+                    children: object.children,
+                    id: id,
+                    status: object.status
+                });
                 console.log("Removed city: ", change.doc.id);
                 $('#' + id).remove();
                 //console.log("Removed city: ", change.doc.data());
@@ -148,30 +163,133 @@ $('#logout').on('click', function () {
 
 $('#accept-button').on('click', function () {
     console.log(this.getAttribute('data-id'));
+    let id = this.getAttribute('data-id');
+    var statusRef = db.collection("bookings").doc(id);
+    let booking = [];
+
+    statusRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            booking.push(doc.data());
+        } else {
+            // doc.data() will be undefined in this case
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+
+// Set the "capital" field of the city 'DC'
+    return statusRef.update({
+        status: true
+    })
+        .then(() => {
+            console.log("Document successfully updated!", booking);
+            let booked = booking[0];
+            document.getElementById('accept-button').hidden = true;
+            document.getElementById('booking_status').innerText = 'Confirmed';
+            $('#booking_status').css('color', 'green');
+
+            var templateParams = {
+                to_name: booked.name,
+                to_email: booked.mail,
+                checkin: booked.checkin,
+                checkout: booked.checkout,
+                reply_to: 'reservations@hotelcomstermtwapa.co.ke'
+            };
+
+            emailjs.send('service_h38wuz1', 'template_ftgc1gp', templateParams)
+                .then(function(response) {
+                    console.log('SUCCESS!', response.status, response.text, booked.mail);
+                }, function(error) {
+                    console.log('FAILED...', error);
+                });
+        })
+        .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
 });
 
 function expandInfo(evt) {
     let id = evt.id;
-    let booking = bookings.find(booking => booking.id === id);
-    console.log(booking);
-    document.getElementById('modal-title').innerText = booking.name;
-    document.getElementById('name').innerText = booking.name;
-    document.getElementById('mail').innerText = booking.mail;
-    document.getElementById('amount').innerText = booking.amount;
-    document.getElementById('adults').innerText = booking.adults;
-    document.getElementById('children').innerText = booking.children;
-    document.getElementById('nights').innerText = getDateDiff(booking.checkin, booking.checkout) + ' night';
-    document.getElementById('guests').innerText = booking.guests;
-    document.getElementById('checkin').innerText = booking.checkin;
-    document.getElementById('checkout').innerText = booking.checkout;
-    document.getElementById('rooms').innerText = booking.rooms;
-    document.getElementById('notes').innerText = booking.notes;
-    document.getElementById('accept-button').setAttribute('data-id', booking.id);
+    let bookingdata = [];
+    var docRef = db.collection("bookings").doc(id);
 
-    $('#dataModal').modal('show');
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            //console.log("Document data:", doc.data());
+            let booking = doc.data();
+            document.getElementById('accept-button').hidden = !!booking.status;
+            document.getElementById('modal-title').innerText = booking.name;
+            document.getElementById('name').innerText = booking.name;
+            document.getElementById('mail').innerText = booking.mail;
+            document.getElementById('amount').innerText = booking.amount;
+            document.getElementById('adults').innerText = booking.adults;
+            document.getElementById('children').innerText = booking.children;
+            document.getElementById('nights').innerText = getDateDiff(booking.checkin, booking.checkout) + ' night';
+            document.getElementById('guests').innerText = booking.guests;
+            document.getElementById('checkin').innerText = booking.checkin;
+            document.getElementById('checkout').innerText = booking.checkout;
+            document.getElementById('rooms').innerText = booking.rooms;
+            document.getElementById('notes').innerText = booking.notes;
+            document.getElementById('phone_number').innerText = booking.phone;
+            document.getElementById('accept-button').setAttribute('data-id', id);
+            let status;
+            if (booking.status) {
+                status = 'Confirmed'
+                document.getElementById('booking_status').innerText = status;
+                $('#booking_status').css('color', 'green');
+            }else {
+                status = 'Not Confirmed'
+                document.getElementById('booking_status').innerText = status;
+                $('#booking_status').css('color', 'red');
+            }
+
+            $('#dataModal').modal('show');
+        } else {
+            // doc.data() will be undefined in this case
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+    });
+    //let booking = bookings.find(booking => booking.id === id);
+    //console.log(booking);
 }
 
 function getDateDiff(earlier_date, later_date) {
     let Difference_In_Time = new Date(later_date).getTime() - new Date(earlier_date).getTime();
     return Difference_In_Time / (1000 * 3600 * 24);
+}
+
+function getOneDocument(doc, ref) {
+    var docRef = db.collection(doc).doc(ref);
+
+    docRef.get().then((doc) => {
+        if (doc.exists) {
+            console.log("Document data:", doc.data());
+            return doc.data();
+        } else {
+            // doc.data() will be undefined in this case
+            return false;
+        }
+    }).catch((error) => {
+        console.log("Error getting document:", error);
+        return false;
+    });
+}
+
+function acceptBooking(ref) {
+    var washingtonRef = db.collection("bookings").doc(ref);
+
+// Set the "capital" field of the city 'DC'
+    return washingtonRef.update({
+        status: true
+    })
+        .then(() => {
+            console.log("Document successfully updated!");
+        })
+        .catch((error) => {
+            // The document probably doesn't exist.
+            console.error("Error updating document: ", error);
+        });
 }
