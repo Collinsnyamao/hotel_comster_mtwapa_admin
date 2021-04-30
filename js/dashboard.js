@@ -258,7 +258,7 @@ function expandInfo(evt) {
 
 function getDateDiff(earlier_date, later_date) {
     let Difference_In_Time = new Date(later_date).getTime() - new Date(earlier_date).getTime();
-    return Difference_In_Time / (1000 * 3600 * 24);
+    return Math.round(Difference_In_Time / (1000 * 3600 * 24));
 }
 
 function getOneDocument(doc, ref) {
