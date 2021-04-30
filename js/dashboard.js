@@ -231,6 +231,7 @@ function expandInfo(evt) {
             document.getElementById('checkin').innerText = booking.checkin;
             document.getElementById('checkout').innerText = booking.checkout;
             document.getElementById('rooms').innerText = booking.rooms;
+            document.getElementById('unit-count').innerText = booking.roomCount;
             document.getElementById('notes').innerText = booking.notes;
             document.getElementById('phone_number').innerText = booking.phone;
             document.getElementById('accept-button').setAttribute('data-id', id);

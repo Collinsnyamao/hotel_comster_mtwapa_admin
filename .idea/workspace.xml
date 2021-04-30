@@ -19,7 +19,7 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f69fbd7-c186-45d2-a3b9-97a208cf54c8" name="Default Changelist" comment="initial">
+    <list default="true" id="5f69fbd7-c186-45d2-a3b9-97a208cf54c8" name="Default Changelist" comment="Fix: issue with decimal calculation of nights.">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -84,6 +84,7 @@
       <workItem from="1619103095868" duration="5169000" />
       <workItem from="1619191242752" duration="6318000" />
       <workItem from="1619360121616" duration="609000" />
+      <workItem from="1619799999037" duration="747000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <created>1619360299651</created>
@@ -92,7 +93,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619360299651</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Fix: issue with decimal calculation of nights.">
+      <created>1619800143368</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1619800143368</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,7 +120,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
-    <option name="LAST_COMMIT_MESSAGE" value="initial" />
+    <MESSAGE value="Fix: issue with decimal calculation of nights." />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: issue with decimal calculation of nights." />
   </component>
   <component name="WindowStateProjectService">
     <state x="594" y="365" key="Github.ShareDialog" timestamp="1619109294197">
@@ -139,10 +148,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="236" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1619022983229" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1619360309295">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1619800146996">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1619360309295" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1619800146996" />
     <state x="421" y="205" width="597" height="490" key="find.popup" timestamp="1619103810173">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
