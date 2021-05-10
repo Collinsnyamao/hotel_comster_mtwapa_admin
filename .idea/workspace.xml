@@ -19,8 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5f69fbd7-c186-45d2-a3b9-97a208cf54c8" name="Default Changelist" comment="Fix: issue with decimal calculation of nights.">
+    <list default="true" id="5f69fbd7-c186-45d2-a3b9-97a208cf54c8" name="Default Changelist" comment="Fix: added unit count">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/dashboard.html" beforeDir="false" afterPath="$PROJECT_DIR$/dashboard.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/js/dashboard.js" beforeDir="false" afterPath="$PROJECT_DIR$/js/dashboard.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -84,7 +86,8 @@
       <workItem from="1619103095868" duration="5169000" />
       <workItem from="1619191242752" duration="6318000" />
       <workItem from="1619360121616" duration="609000" />
-      <workItem from="1619799999037" duration="747000" />
+      <workItem from="1619799999037" duration="1037000" />
+      <workItem from="1620639878722" duration="2709000" />
     </task>
     <task id="LOCAL-00001" summary="initial">
       <created>1619360299651</created>
@@ -100,7 +103,14 @@
       <option name="project" value="LOCAL" />
       <updated>1619800143368</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="Fix: added unit count">
+      <created>1619801634043</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1619801634043</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,7 +131,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="initial" />
     <MESSAGE value="Fix: issue with decimal calculation of nights." />
-    <option name="LAST_COMMIT_MESSAGE" value="Fix: issue with decimal calculation of nights." />
+    <MESSAGE value="Fix: added unit count" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fix: added unit count" />
   </component>
   <component name="WindowStateProjectService">
     <state x="594" y="365" key="Github.ShareDialog" timestamp="1619109294197">
@@ -148,10 +159,10 @@
       <screen x="0" y="0" width="1440" height="900" />
     </state>
     <state width="1398" height="236" key="GridCell.Tab.0.right/0.0.1440.900@0.0.1440.900" timestamp="1619022983229" />
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1619800146996">
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2" timestamp="1619801641054">
       <screen x="0" y="0" width="1440" height="900" />
     </state>
-    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1619800146996" />
+    <state x="320" y="201" key="Vcs.Push.Dialog.v2/0.0.1440.900@0.0.1440.900" timestamp="1619801641054" />
     <state x="421" y="205" width="597" height="490" key="find.popup" timestamp="1619103810173">
       <screen x="0" y="0" width="1440" height="900" />
     </state>

@@ -1,4 +1,4 @@
-var firebaseConfig = {
+const firebaseConfig = {
     apiKey: "AIzaSyC75xjGMriJU1viUZYgfgHYpthYybhAvmg",
     authDomain: "hotel-comster-mtwapa.firebaseapp.com",
     projectId: "hotel-comster-mtwapa",
@@ -12,7 +12,7 @@ firebase.initializeApp(firebaseConfig);
 firebase.analytics();
 
 const database = firebase.database();
-var db = firebase.firestore();
+const db = firebase.firestore();
 
 const dbRef = firebase.database().ref();
 let tableData = [];
@@ -138,7 +138,7 @@ firebase.auth().onAuthStateChanged((user) => {
     if (user) {
         // User is signed in, see docs for a list of available properties
         // https://firebase.google.com/docs/reference/js/firebase.User
-        var uid = user.uid;
+        const uid = user.uid;
         // ...
         console.log(user);
     } else {
@@ -164,7 +164,7 @@ $('#logout').on('click', function () {
 $('#accept-button').on('click', function () {
     console.log(this.getAttribute('data-id'));
     let id = this.getAttribute('data-id');
-    var statusRef = db.collection("bookings").doc(id);
+    const statusRef = db.collection("bookings").doc(id);
     let booking = [];
 
     statusRef.get().then((doc) => {
@@ -189,17 +189,42 @@ $('#accept-button').on('click', function () {
             document.getElementById('booking_status').innerText = 'Confirmed';
             $('#booking_status').css('color', 'green');
 
-            var templateParams = {
-                to_name: booked.name,
+            const templateParams = {
+                booking_name: booked.name,
                 to_email: booked.mail,
-                checkin: booked.checkin,
-                checkout: booked.checkout,
-                reply_to: 'reservations@hotelcomstermtwapa.co.ke'
+                checkin_date: booked.checkin,
+                checkout_date: booked.checkout,
+                phone: booked.phone,
+                email: booked.mail,
+                adults: booked.adults,
+                children: booked.children,
+                room_type: booked.rooms,
+                number_of_rooms: booked.rooms
             };
 
-            emailjs.send('service_h38wuz1', 'template_ftgc1gp', templateParams)
+            const templateParams2 = {
+                booking_name: booked.name,
+                to_email: booked.mail,
+                checkin_date: booked.checkin,
+                checkout_date: booked.checkout,
+                phone: booked.phone,
+                email: booked.mail,
+                adults: booked.adults,
+                children: booked.children,
+                room_type: booked.rooms,
+                number_of_rooms: booked.rooms
+            };
+
+            emailjs.send('service_7wihh4g', 'template_i4317om', templateParams)
                 .then(function(response) {
                     console.log('SUCCESS!', response.status, response.text, booked.mail);
+
+                    emailjs.send('service_7wihh4g', 'template_29cwh9s', templateParams2)
+                        .then(function(response2) {
+                            console.log('SUCCESS!', response2.status, response2.text, booked.mail);
+                        }, function(error2) {
+                            console.log('FAILED...', error2);
+                        });
                 }, function(error) {
                     console.log('FAILED...', error);
                 });
@@ -213,7 +238,7 @@ $('#accept-button').on('click', function () {
 function expandInfo(evt) {
     let id = evt.id;
     let bookingdata = [];
-    var docRef = db.collection("bookings").doc(id);
+    const docRef = db.collection("bookings").doc(id);
 
     docRef.get().then((doc) => {
         if (doc.exists) {
@@ -263,7 +288,7 @@ function getDateDiff(earlier_date, later_date) {
 }
 
 function getOneDocument(doc, ref) {
-    var docRef = db.collection(doc).doc(ref);
+    const docRef = db.collection(doc).doc(ref);
 
     docRef.get().then((doc) => {
         if (doc.exists) {
@@ -280,7 +305,7 @@ function getOneDocument(doc, ref) {
 }
 
 function acceptBooking(ref) {
-    var washingtonRef = db.collection("bookings").doc(ref);
+    const washingtonRef = db.collection("bookings").doc(ref);
 
 // Set the "capital" field of the city 'DC'
     return washingtonRef.update({
